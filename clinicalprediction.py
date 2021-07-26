@@ -66,16 +66,26 @@ precisionT = np.zeros(splits)
 recallT = np.zeros(splits)
 f1T = np.zeros(splits)
 
-batchSize = 1
+splits = 5
+accuracyT = np.zeros(splits)
+sensitivityT = np.zeros(splits)
+specificityT = np.zeros(splits)
+precisionT = np.zeros(splits)
+recallT = np.zeros(splits)
+f1T = np.zeros(splits)
+tT = np.zeros(splits)
+
+batchSize = 8
 Image_size = [188,188]
 for fold in range(splits):
   test_path = '/content/drive/MyDrive/Colab Notebooks/kfolddata/fold'+str(fold+1)+'/test'
-  modelpath = '/content/drive/MyDrive/Colab Notebooks/Models/clinical/f3100/fold'+str(fold+1)+'/best100.hdf5'
+  modelpath = '/content/drive/MyDrive/Colab Notebooks/Models/clinical/f100/fold'+str(fold+1)+'/best100.hdf5'
   start=time.time();
   accuracy,r,k,test_set = set_data(test_path,modelpath)
   end=time.time();
+  tT[fold]=(end-start)/5.0;
   accuracyT[fold] = accuracy[1]
-
+  
   predIdxs = np.argmax(r,axis=-1)
   #actual = np.argmax(test_set,axis=-1)
   
@@ -118,4 +128,4 @@ print("Average specificity is:",sum(specificityT)/5.0)
 print("Average precision is:",sum(precisionT)/5.0)
 print("Average recall is:",sum(recallT)/5.0)
 print("Average f1-score is:",sum(f1T)/5.0)
-print("Time is :",(end-start)/34);
+print("Time is :",sum(tT)/5.0);

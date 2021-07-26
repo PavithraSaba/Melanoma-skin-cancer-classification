@@ -98,6 +98,6 @@ sns.heatmap(cnf_matrix, annot=True,cmap='Blues');
 
 print("Evaluation accuracy is:",accuracy); 
 print("prediction accuracy is:",acc);
-print("Time is :",(end-start)/3561);
+print("Time is :",(end-start)/446.0);
 
   
